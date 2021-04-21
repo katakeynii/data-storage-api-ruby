@@ -26,6 +26,10 @@ class DataStorageServer
 
   def call(env)
     path = env['PATH_INFO']
+    # Spec 1 : we will have a front controller. The front controller is responsible for taking all upcoming request
+    # Spec 2 : We will create a router class. This class will held all route definition of our application. FC will take all routes defined here and find the match and call specific logic controller
+    # Spec 3 we will logic controller (LC) that a responsible for responding to client specific demand
+    # FLOW :
     case env['REQUEST_METHOD']
     when 'GET'
       get(path)
