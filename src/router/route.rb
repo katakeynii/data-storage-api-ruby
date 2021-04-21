@@ -1,13 +1,18 @@
 module Router
     class Route
         
-        attr_reader :path, :method, :controller, :name
+        attr_reader :path, :request_method, :controller, :name, :parameters
         def initialize request_method, path, controller
             @request_method = request_method
             @path = path 
             @controller = controller
             @name = set_name controller
+            @parameters = path.split("/")
+                .select{|x| x.start_with?(":") }
             raise "unknow http request method #{request_method} " unless["get", "post", "put", "delete"].include?(request_method)
+        end
+        def is_parameter? attribute
+            @parameters.include?(attribute)
         end
         private 
             def set_name to_controller
