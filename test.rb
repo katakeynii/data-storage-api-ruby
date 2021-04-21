@@ -6,13 +6,14 @@ class DataStorageServerTest < Minitest::Test
   include Rack::Test::Methods
 
   def app
+    $database = {}
     DataStorageServer.new
   end
 
   def test_put
+
     put '/data/foo', 'some object'
     res = JSON.parse(last_response.body)
-
     assert_equal 201, last_response.status
     assert_equal 11, res["size"]
     assert res["oid"].is_a?(String)

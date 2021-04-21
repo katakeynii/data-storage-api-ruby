@@ -29,7 +29,6 @@ module Router
                 }
                 break
             end
-            raise "#{request_method} #{path} path not found" if to_dispatch.nil?
             to_dispatch
 
         end

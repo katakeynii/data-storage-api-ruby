@@ -41,12 +41,10 @@ class DataStorageServer
     # Spec 2 : We will create a router class. This class will held all route definition of our application. FC will take all routes defined here and find the match and call specific logic controller
     # Spec 3 we will logic controller (LC) that a responsible for responding to client specific demand
     # FLOW :
+    req = Rack::Request.new(env)
     request_method = env['REQUEST_METHOD']
-    FrontController.handle request_method, path
-    # case env['REQUEST_METHOD']
-    # when 'GET'
-    #   get(path)
-    # end
+    FrontController.handle request_method, path, req
+
   end
 end
 
@@ -57,6 +55,6 @@ if __FILE__ == $0
     use Rack::Reloader
     run DataStorageServer.new
   end.to_app
-
+  $database = {}
   Rack::Server.start(app: app, Port: 8282)
 end

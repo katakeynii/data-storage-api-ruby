@@ -1,4 +1,12 @@
 module Router
+
+    # This class represente a route definition
+    # Each route shoudld have a 
+    #   - path : path of the request
+    #   - request_method : request method put, get ...
+    #   - controller : the controller to be called 
+    #   - name : the name of the request
+    #   - parameter : parameter to be send
     class Route
         
         attr_reader :path, :request_method, :controller, :name, :parameters
