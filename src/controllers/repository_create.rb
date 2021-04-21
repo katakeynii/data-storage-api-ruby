@@ -3,14 +3,15 @@ class RepositoryController < AppController
     def create
         data = @url_params.map{|k,v| "#{k}#{v}"}.join('&')
         oid = data.tr(" ", "-")
-        object = {
+        response = {
             oid: data.tr(" ", "-"),
-            data: data,
-            size: data.size
+            size: data.size            
         }
+        object = response
+        object[:data] = data
         $database[params[:name]] ||= {}
         $database[params[:name]][oid] = object
-        render object.to_json, 201, {"Content-Type" => "application/json"}
+        render response.to_json, 201, {"Content-Type" => "application/json"}
     end
     def get_object
         repo = $database[params[:name]]
