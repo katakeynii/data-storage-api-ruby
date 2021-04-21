@@ -2,15 +2,24 @@ module Router
     class Registry
         attr_reader :routes
         def initialize
-            @routes = {}
+            @routes = []
         end
 
-        def add path, request_method, to_controller
-            name = get_name to_controller
-            route = Route.new(path, request_method, to_controller)
-            routes[name] = route
+        def add request_method, path, to_controller
+            route = Route.new(request_method, path, to_controller)
+            @routes << route
+        end
+        
+        def find name
+            @routes.select{|route| route.name.eql?(name)}.last
+
         end
 
+        ["get", "post", "put", "delete"].each do |method|
+            define_method(method) do |path, to_controller|
+                add method, path, to_controller
+            end
+        end
 
     end
 end

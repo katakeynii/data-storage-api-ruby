@@ -7,7 +7,7 @@ module Router
             @path = path 
             @controller = controller
             @name = set_name controller
-            raise "unknow http request method " unless["get", "post", "put", "delete"].include?(request_method)
+            raise "unknow http request method #{request_method} " unless["get", "post", "put", "delete"].include?(request_method)
         end
         private 
             def set_name to_controller
